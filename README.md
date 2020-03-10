@@ -6,7 +6,6 @@
 4. EditPage should be able to see and annotate these images without errors
 5. Additional functionality of uploading videos directly
 6. Add this to the DownloadVideoComponent file
-
 # Introduction to ImageAnnotationIoUTool
 
 **Technologies used**
@@ -146,7 +145,7 @@ How to start the application :
 2. Download not happening through nodeserver
 3. Dividevideo file does not check if Dividedframes folder exists
 
-# NEVER PUSH OR COMMIT WITH WEIGHTS IN THE FOLDER
+# NEVER PUSH OR COMMIT WITH WEIGHTS IN THE FOLDER UNLESS USING .GITIGNORE
 
 # Steps to run the application (may involve downloading mongo,go libraries and setting up django environment)
 1. clone the git

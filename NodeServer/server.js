@@ -14,6 +14,7 @@ app.use(cors())
 //Serve static content for the app from the "public" directory in the application directory.
 app.use(express.static(__dirname + '/public'));
 app.use('/static', express.static(__dirname + '/public'));
+app.use('/videos',express.static(__dirname+ '/public/Downloaded'))
 app.use('/img',express.static(path.join(__dirname, 'public/uploaded')));
 app.use('/file',express.static(path.join(__dirname,'public/file')));
 app.use(

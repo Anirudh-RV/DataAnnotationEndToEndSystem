@@ -14,7 +14,6 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.csrf import csrf_exempt
 import json
 # to read images from urls
-from darkflow.net.build import TFNet
 
 import os
 import time
@@ -23,10 +22,13 @@ import ast
 # to read images from urls
 import PIL
 from PIL import Image
+import cv2
+import random
+import requests
+from darkflow.net.build import TFNet
 import tensorflow as tf
 print(tf.__version__)
 import numpy as np
-import cv2
 from timeit import default_timer as timer
 # textbox++ models
 from tbpp_model import TBPP512, TBPP512_dense
@@ -60,7 +62,6 @@ with sl_graph.as_default():
 input_width = 256
 input_height = 32
 weights_path = 'weights.022.h5'
-
 
 def get_iou(bb1, bb2):
     """
@@ -192,8 +193,16 @@ def dividetheframes(request):
         headers = {
             'username': username,
         }
-        response = requests.request("POST", 'http://192.168.1.8:4000/upload', files=files, headers=headers)
+        response = requests.request("POST", 'http://localhost:4000/upload', files=files, headers=headers)
         print(response)
+
+    sendImageDataToApi = username
+    for images in image_names:
+        sendImageDataToApi = sendImageDataToApi + ","+images
+
+    print("data being sent to Go API: "+sendImageDataToApi)
+    response = requests.request("POST","http://localhost:8080/insertimagedata",data = sendImageDataToApi)
+    print(response)
 
     print("Backend Process Complete")
     context = {"data":"data"}

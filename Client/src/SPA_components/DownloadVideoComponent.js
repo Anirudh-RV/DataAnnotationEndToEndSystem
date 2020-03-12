@@ -18,34 +18,12 @@ componentDidMount(){
 this.heading.innerHTML = this.props.location.state.userName+"</br>Start Your Data Science Jounrney with XP-2";
 this.buttonpressed = 0;
 this.counter = 0;
-
-}
-
-downloadallfiles = () =>{
-  axios.post("http://192.168.1.8:4000/downloadfiles/",{
-    username : this.props.location.state.userName
-  })
-    .then(res => { // then print response status
-      //toast.success('upload success')
-      console.log(res)
-      // after creating the zip file, now download, delay for zip file creation
-      this.wait(5000);
-      this.testall();
-    })
-    .catch(err => {
-    // then print response status
-    console.log(err)
-    })
-}
-
-testall = () =>{
-  window.open('http://192.168.1.8:4000/videos/'+this.props.location.state.userName+'.zip');
 }
 
 dividetheframes = () =>{
   var username = this.props.location.state.userName
   var videoname =  this.videoname.value
-  var imagetype = 'png'
+  var imagetype = 'jpeg'
   var videourl = 'http://localhost:4000/videos/'+username+'/downloads/'+videoname+'.mp4'
   var low = '1'
   var high = '5'
@@ -60,7 +38,7 @@ dividetheframes = () =>{
       if(this.DataRetrieved) {
        this.DataRetrieved.innerHTML = res.data["message"];
     }
-    this.downloadallfiles();
+    this.gotoeditpage();
     })
     .catch(err => { // then print response status
     //  toast.error('upload fail')
@@ -76,6 +54,13 @@ do { d2 = new Date(); }
 while(d2-d < ms);
 }
 
+gotoeditpage = () =>{
+  var userName = this.props.location.state.userName;
+  this.props.history.push({
+    pathname: '/EditPage',
+    state: {userName: this.props.location.state.userName}
+})
+}
 
 handleSubmit = () =>{
   this.Message.innerHTML = "The process may take a few minutes..."
@@ -87,6 +72,8 @@ handleSubmit = () =>{
     .then(res => { // then print response status
       //toast.success('upload success')
       console.log(res)
+      this.Message.innerHTML = "Download complete..."
+
     })
     .catch(err => {
     // then print response status
@@ -94,12 +81,6 @@ handleSubmit = () =>{
     console.log("fail")
     console.log(err)
     })
-}
-
-Logout = () =>{
-    const cookies = new Cookies()
-    cookies.remove('username');
-    window.location.reload(false);
 }
 
 render() {
@@ -131,7 +112,7 @@ render() {
             Download
           </Button>
 
-          <Button className="StartButton" block bsSize="large" onClick={this.gotoeditpage} type="button">
+          <Button className="StartButton" block bsSize="large" onClick={this.dividetheframes} type="button">
             Start Annotation
           </Button>
 
@@ -139,9 +120,9 @@ render() {
           <p className = "ErrorMessage" ref = {c => this.Message = c}></p>
         </form>
       </div>
-      <div className="SecondBoxSignIn">
-        <p className = "LinkToAccount"> Done downloading the files?&nbsp;
-          <Link className="LinkToSignUp" onClick={this.Logout}>Log out</Link>
+      <div className="SecondBoxSignIn" ref = {c => this.Info = c}>
+        <p className = "LinkToAccount"> Download complete and not redirecting?Click here&nbsp;
+          <Link className="LinkToSignUp" onClick={this.dividetheframes}>Redirect</Link>
         </p>
       </div>
       </div>

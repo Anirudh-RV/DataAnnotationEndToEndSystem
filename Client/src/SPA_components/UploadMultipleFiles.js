@@ -67,7 +67,7 @@ return true;
 }
 
 // using Api, add names of the images being uploaded to a database
-  addToBackendUsingApi = (files) =>{
+addToBackendUsingApi = (files) =>{
 
       var userName = this.props.location.state.userName;
 

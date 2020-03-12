@@ -1,11 +1,12 @@
-# Overall requirements IMPORTANT
+# Overall requirements
 
-1. Make sure dividing the frames happens without errors
+1. Make sure dividing the frames happens without errors (Just have a delay after downloading)
 2. Connect back the DownloadVideoComponent back to EditPage
 3. django backend should save the images in the users folders
 4. EditPage should be able to see and annotate these images without errors
-5. Additional functionality of uploading videos directly
+5. Additional functionality of uploading videos directly (Optional when deployment is done,Use dividevideo.py instead)
 6. Add this to the DownloadVideoComponent file
+
 # Introduction to ImageAnnotationIoUTool
 
 **Technologies used**
